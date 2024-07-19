@@ -35,8 +35,19 @@ O ## indica que a palavra é uma continuação da palavra anterior, isso é feit
 ##### Por que BERT?
 BERT é um modelo de linguagem baseado em transformer que consegue capturar o contexto de uma palavra em uma frase, ele é um modelo pré-treinado, que consegue ser utilizado para diversos tipos de tarefas em NLP, como classificação de texto, extração de entidades, entre outros. Para esse problema de captura de contexto e relevância de respostas, o BERT é uma ótima escolha, suas variações como o DistilBERT (mais leve, cerca de 40% a menos parâmetros), o RoBERTa (treinado em mais dados, ajuste de hiperparâmetros e tokenização), e o ALBERT (mais eficiência de parâmetros), também são boas escolhas, mas pra esse problema, o BERT é uma escolha sólida.
 
+#### Conjunto de Dados
+Os dados utilizados no treinamento do modelo, após a tokenização, terão as seguintes colunas:
+*   id - A unique identifier for the row.
+*   tokens - Tokens extraídos do contexto da pergunta-resposta.
+*   _mask - Máscara de atenção, que indica quais tokens são relevantes para a classificação (ainda não implementado)._
+*   label - A coluna que indica qual modelo teve a melhor resposta, ou se houve um empate. (0, 1, 2)
+
 #### Modelo de Classificação
 O modelo de classificação que será utilizado é o BertForSequenceClassification, que é um modelo de classificação de sequências, que utiliza o modelo BERT como base, ele será treinado com os tokens extraídos do contexto da pergunta-resposta.
+O processo de treinamento será feito em 3 etapas:
+1. Treinamento do modelo
+2. Validação do modelo
+3. Teste do modelo
 
 ### Pós-Modelagem
 Após a modelagem, será feita uma análise dos resultados, e se necessário, será feito um ajuste fino dos hiperparâmetros, para melhorar a performance do modelo.
